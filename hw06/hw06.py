@@ -107,10 +107,14 @@ def sort_files(files, our_root_path):
         if type_file == 'archives':
             path_unpack_arch = os.path.join(
                 our_root_path, type_file, div_file_ext[0])
-            print(f'Файл: {i} распаковываем в {path_unpack_arch}\n')
-            os.mkdir(path_unpack_arch)
-            shutil.unpack_archive(i, path_unpack_arch)
-            os.remove(i)
+            if os.path.exists(path_unpack_arch):
+                print(f'Файл: {i} уже был обработан. Удаляем дубль\n')
+                os.remove(i)
+            else:
+                print(f'Файл: {i} распаковываем в {path_unpack_arch}\n')
+                os.mkdir(path_unpack_arch)
+                shutil.unpack_archive(i, path_unpack_arch)
+                os.remove(i)
         else:
             print(f'Файл: {i} перемещаем в {type_file}\n')
             os.rename(i, os.path.join(type_file_dir, normalize(
