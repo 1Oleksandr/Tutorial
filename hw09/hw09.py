@@ -60,8 +60,7 @@ def show_all(*args):
 @input_error
 def phone(*args):
     name = args[0].lower()
-    customer = customers[name]
-    if customer:
+    if customers[name]:
         return f'{name.capitalize()} has {customers[name]} phone number.'
 
 
