@@ -1,4 +1,4 @@
-records = {}
+customers = {}
 
 
 def input_error(func):
@@ -16,20 +16,19 @@ def input_error(func):
 
 @input_error
 def add_record(*args):
-    rec_id = args[0].lower()
-    rec_value = int(args[1])
-    records[rec_id] = rec_value
-    return f"Add record {rec_id = }, {rec_value = }"
+    name = args[0].lower()
+    phone = int(args[1])
+    customers[name] = phone
+    return f"Add record {name = }, {phone = }"
 
 
 @input_error
 def change_record(*args):
-    rec_id = args[0]
-    new_value = int(args[1])
-    rec = records[rec_id]
-    if rec:
-        records[rec_id] = new_value
-        return f"Change record {rec_id = }, {new_value = }"
+    name = args[0].lower()
+    new_phone = int(args[1])
+    if customers[name]:
+        customers[name] = new_phone
+        return f"Change record {name = }, {new_phone = }"
 
 
 def unknown(*args):
@@ -55,15 +54,15 @@ def help(*args):
 
 
 def show_all(*args):
-    return records
+    return customers
 
 
 @input_error
 def phone(*args):
     name = args[0].lower()
-    customer = records[name]
+    customer = customers[name]
     if customer:
-        return f'{name.capitalize()} has {records[name]} phone number.'
+        return f'{name.capitalize()} has {customers[name]} phone number.'
 
 
 COMMANDS = {add_record: "add",
